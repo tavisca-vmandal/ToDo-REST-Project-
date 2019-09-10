@@ -1,0 +1,137 @@
+*{
+	margin:0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+.grid-container{
+	display:grid;
+	grid-template-columns: auto auto auto;
+	grid-template-rows: auto auto auto;
+	padding: 5px;
+}
+.header{
+	grid-column: 1/4;
+	background-color: #11E199;
+	height: 100px;
+	position: relative;
+}
+.navbar{
+	grid-column: 1/1;
+	grid-row:2/4;
+	background-color: #15576B;
+	height: 500px;
+}
+.main{
+	grid-row: 2/3;
+	grid-column: 2/4;
+	background-color: #5C777F;
+	height: 500px;
+}
+.footer{
+	grid-column: 1/4;
+	background-color: #323E41;
+	height: 50px;
+}
+.header div{
+	position: fixed;
+	font-size:50px;
+	font-weight: bold;
+	color: black;
+	top:20px;
+	right: 550px;
+	left:550px;
+}
+.navbar ul {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+  width: 23%;
+  background-color: #f1f1f1;
+  position: absolute;
+  height: 70%;
+  overflow: auto;
+
+}
+
+.navbar li{
+	border-bottom:1px solid black;
+}
+.navbar li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 30px;
+  padding: 20px;
+  text-decoration: none;
+
+}
+
+.navbar li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+#todo-content{
+	position: relative;
+}
+
+.search-container{
+	margin:auto;
+	padding: 10px;
+	max-width: 600px;
+}
+.search-container input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: right;
+  width: 80%;
+  background: #f1f1f1;
+}
+.search-container button {
+  float: right;
+  width: 10%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+.search-container button:hover {
+  background: #0b7dda;
+}
+.search-container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+#user-content,#contact-content,#about-content{
+	font-size: 30px;
+	display: none;
+	padding: 20px;
+}
+table{
+	position: absolute;
+  right: 390px;
+  border: 2px solid black;
+  top:100px;
+  border-collapse: collapse;
+  background-color: white;
+  width:40%;
+
+}
+table th, td {
+  border: 2px solid black;
+  padding: 10px;
+  font-size: 20px;
+}
