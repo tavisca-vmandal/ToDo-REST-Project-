@@ -1,12 +1,12 @@
 package com.telusko.demo.controller;
 
 import com.telusko.demo.model.Todo;
-import org.springframework.stereotype.Controller;
-
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.telusko.demo.dao.TodoRepo;
@@ -18,25 +18,32 @@ public class TodoController
 	@Autowired
 	TodoRepo repo;
 
-	@RequestMapping("/")
-	public String home()
-	{
-		return "home.jsp";
-	}
 	@PostMapping("/todos")
-	public Todo addTodo(@RequestBody Todo todo) {
+	public ResponseEntity<Todo> addTodo(@RequestBody Todo todo) {
+
 		repo.save(todo);
-		return todo;
+		if(repo.findById(todo.getItemId()).isPresent()) {
+			return new ResponseEntity<>(todo,HttpStatus.CREATED);
+		} else
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
 	}
 
 	@GetMapping ("/todos")
-	public List<Todo> getTodos() {
-		return repo.findAll();
+	public ResponseEntity<List<Todo>> getTodos() {
+
+		if(!repo.findAll().isEmpty())
+			return new ResponseEntity<>(repo.findAll(),HttpStatus.OK);
+		else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
 	}
 
 	@GetMapping("/todos/{itemId}")
-	public Optional<Todo> getTodo(@PathVariable("itemId")int id) {
-		return repo.findById(id);
+	public ResponseEntity<Optional<Todo>> getTodo(@PathVariable("itemId")int id) {
+		if(repo.findById(id).isPresent())
+			return new ResponseEntity<>(repo.findById(id),HttpStatus.OK);
+		else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
 	@DeleteMapping("/todos/{itemId}")

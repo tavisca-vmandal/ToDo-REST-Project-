@@ -98,12 +98,12 @@ function addToCurrentDisplay(obj){
 
 }
 
-function display(jsonObj)
+function display(responseText)
 {
-	let arrayObj=JSON.parse(jsonObj);
+	let jsObj=JSON.parse(responseText);
 
 	var table=document.getElementById("todo-table");
-	for (let i=0;i<arrayObj.length;i++)
+	for (let i=0;i<jsObj.length;i++)
 	{
 		
 		var row=table.insertRow(-1);
@@ -111,9 +111,9 @@ function display(jsonObj)
 		var cell1=row.insertCell(1);
 		var cell2=row.insertCell(2);
 		var pTag=document.createElement("p");
-		pTag.innerHTML=arrayObj[i].itemName;
+		pTag.innerHTML=jsObj[i].itemName;
 		var pid=document.createElement("p");
-		pid.innerHTML=arrayObj[i].itemId;
+		pid.innerHTML=jsObj[i].itemId;
 		var inputBox=document.createElement("input");
 		inputBox.setAttribute('type',"text");
 		inputBox.style.display="none";
@@ -131,8 +131,8 @@ function display(jsonObj)
 		cell2.appendChild(edit);
 		cell2.appendChild(del);
 
-		id=arrayObj[i].itemId;
-		addToDataList(arrayObj[i].itemName);
+		id=jsObj[i].itemId;
+		addToDataList(jsObj[i].itemName);
 	}
 	showList();
 }
@@ -158,7 +158,7 @@ function isDuplicate(item){
 	for(let i = 1; i < rows.length; i++)
 	{
 		var td=rows[i].cells;
-		var pTag=td[0].childNodes;
+		var pTag=td[1].childNodes;
 		var data=pTag[0].innerHTML;
 		if(data==item)
 		{
@@ -243,17 +243,18 @@ function saveData(element){
 function searchElement(){
 
 	var searchItem=document.getElementById("search-item").value;
-
+	
 	if(searchItem==null||searchItem=='')
 		return;
-
+	
 	var rows=document.getElementById("todo-table").rows;
-
+	console.log(rows);
 	for(let i = 1; i < rows.length; i++)
 	{
 		var td=rows[i].cells;
-		var pTag=td[0].childNodes;
+		var pTag=td[1].childNodes;
 		var data=pTag[0].innerHTML;
+		
 		if(data!=searchItem)
 			rows[i].style.display="none";
 		else
