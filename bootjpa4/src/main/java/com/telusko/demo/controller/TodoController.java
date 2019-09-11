@@ -34,7 +34,7 @@ public class TodoController
 		if(!repo.findAll().isEmpty())
 			return new ResponseEntity<>(repo.findAll(),HttpStatus.OK);
 		else
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
 	}
 
@@ -47,14 +47,19 @@ public class TodoController
 	}
 
 	@DeleteMapping("/todos/{itemId}")
-	public String deleteTodo(@PathVariable("itemId")int id) {
+	public ResponseEntity<String> deleteTodo(@PathVariable("itemId")int id) {
 		Todo item=repo.getOne(id);
 		repo.delete(item);
-		return "deleted";
+		if(!repo.findById(id).isPresent()) {
+			return new ResponseEntity<>(HttpStatus.OK);
+		} else
+			return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+
 	}
 	@PutMapping("/todos")
 	public Todo updateTodo(@RequestBody Todo todo) {
-		repo.save(todo);
-		return todo;
+
+		Todo t=repo.save(todo);
+		return t;
 	}
 }

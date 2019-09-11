@@ -21,8 +21,5 @@ public class Todo {
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
 	}
-	@Override
-	public String toString() {
-		return "Todo [itemId=" + itemId + ", itemName=" + itemName +  "]";
-	}
+
 }
